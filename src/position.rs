@@ -1,9 +1,10 @@
 
 use std::ops::Add;
 use bevy::prelude::*;
+use rand::{prelude::Distribution, distributions::Standard};
 use crate::prelude::{*, Direction};
 
-#[derive(Component, Debug, Default, Copy, Clone)]
+#[derive(Component, Debug, Default, Copy, Clone, PartialEq, Eq)]
 pub struct Position {
     pub x: i32,
     pub y: i32,
@@ -34,6 +35,17 @@ impl Position {
             self.y as f32 * TILE_SIZE,
         )
     }
+
+    pub fn within_range(self, other: Position, reach: f32) -> bool {
+        self.as_vec2().distance(other.as_vec2()) <= reach
+    }
+
+    pub fn region(self) -> Region {
+        Region(
+            (self.x + 50) / 100,
+            (self.y + 50) / 100,
+        )
+    }
 }
 
 impl Add<Direction> for Position {
@@ -48,6 +60,13 @@ impl Add<Direction> for Position {
             South => Position::new(self.x    , self.y - 1),
             West  => Position::new(self.x - 1, self.y    ),
         }
+    }
+}
+
+impl Distribution<Position> for Standard {
+    fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> Position {
+        let (x, y) = rng.gen();
+        Position::new(x, y)
     }
 }
 

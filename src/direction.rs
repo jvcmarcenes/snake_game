@@ -1,6 +1,7 @@
 
 use Direction::*;
 use bevy::prelude::KeyCode;
+use rand::{prelude::Distribution, distributions::Standard};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[repr(u8)]
@@ -49,6 +50,18 @@ impl TryFrom<KeyCode> for Direction {
             S | Down   => Ok(South),
             D | Right  => Ok(East),
             _ => Err(()),
+        }
+    }
+}
+
+impl Distribution<Direction> for Standard {
+    fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> Direction {
+        match rng.gen_range(0..4) {
+            0 => North,
+            1 => East,
+            2 => South,
+            3 => West,
+            _ => unreachable!()
         }
     }
 }
