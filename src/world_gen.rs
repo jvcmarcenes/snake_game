@@ -12,19 +12,12 @@ impl WorldGen {
         let chunk = self.gen_chunk(region);
 
         for pos in chunk {
-            spawn_wall(com, pos);
+            com.spawn(tiles::wall(pos));
         }
 
         for _ in 0..15 {
             let pos = region.random_pos(&mut thread_rng());
-
-            com.spawn((
-                Food,
-
-                Tracked,
-
-                tile(colors::blush(), pos),
-            ));
+            com.spawn(tiles::food(pos));
         }
     }
 
@@ -85,14 +78,4 @@ impl WorldGen {
     
         positions
     }
-}
-
-pub fn spawn_wall(com: &mut Commands, pos: Position) {
-    com.spawn((
-        Tracked,
-
-        Collidable,
-
-        tile(colors::white(), pos),
-    ));
 }

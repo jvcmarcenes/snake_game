@@ -2,23 +2,6 @@
 use bevy::prelude::*;
 use crate::{prelude::*, snake::Head};
 
-pub const TILE_SIZE: f32 = 26.0;
-
-pub(crate) fn tile(color: Color, pos: Position) -> impl Bundle {
-    (
-        SpriteBundle {
-            sprite: Sprite {
-                color,
-                custom_size: Some(Vec2::new(TILE_SIZE, TILE_SIZE)),
-                ..default()
-            },
-            transform: Transform::from_xyz(pos.x as f32 * TILE_SIZE, pos.y as f32 * TILE_SIZE, 0.0),
-            ..default()
-        },
-        pos
-    )
-}
-
 pub fn spawn_camera(mut com: Commands) {
 	com.spawn((
 		Camera2dBundle::default(),

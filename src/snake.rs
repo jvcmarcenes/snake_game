@@ -9,7 +9,7 @@ pub struct Head {
 }
 
 impl Head {
-    fn new(body: Segments) -> Self {
+    pub fn new(body: Segments) -> Self {
         Self {
             dir: Direction::North,
             body,
@@ -35,7 +35,7 @@ impl Segments {
 }
 
 #[derive(Component, Copy, Clone)]
-pub struct Segment(usize);
+pub struct Segment(pub usize);
 
 pub fn setup(mut com: Commands) {
     let body = [
@@ -44,28 +44,12 @@ pub fn setup(mut com: Commands) {
         Position::new(0, -1),
     ];
 
-	com.spawn((
-        Head::new(Segments(Vec::from(body))),
-
-        tile(colors::munsell(), Position::new(0, 0)),
-	));
+	com.spawn(tiles::snake_head(&body));
 
     for (i, pos) in body.iter().enumerate() {
-        spawn_segment(&mut com, *pos, i);
+        com.spawn(tiles::snake_segment(*pos, i));
     }
 
-}
-
-fn spawn_segment(com: &mut Commands, pos: Position, i: usize) {
-    com.spawn((
-        Segment(i),
-
-        Collidable,
-
-        Tracked,
-
-        tile(colors::munsell(), pos),
-    ));
 }
 
 pub fn consume_input(
@@ -153,7 +137,7 @@ pub fn eat(
         *snake_pos = pos;
         head.body.grow(head_pos);
 
-        spawn_segment(&mut com, head_pos, head.body.len() - 1);
+        com.spawn(tiles::snake_segment(head_pos, head.body.len() - 1));
     }
 }
 

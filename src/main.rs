@@ -7,18 +7,20 @@ pub(crate) mod direction;
 pub(crate) mod position;
 pub(crate) mod input;
 pub(crate) mod region;
+pub(crate) mod tiles;
 
 pub(crate) mod prelude {
     pub(crate) use crate::{
 		*,
 		colors,
-		world::*,
+		// world::*,
 		world_gen::*,
 		snake::*,
         direction::*,
         position::*,
 		input::*,
 		region::*,
+		tiles::*,
     };
 }
 
