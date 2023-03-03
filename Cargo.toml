@@ -6,6 +6,6 @@ edition = "2021"
 repository = "https://github.com/jvcmarcenes/snake_game"
 license = "MIT"
 keywords = ["snake", "game"]
-
+categories = ["games"]
 
 [dependencies]
