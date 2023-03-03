@@ -9,3 +9,6 @@ keywords = ["snake", "game"]
 categories = ["games"]
 
 [dependencies]
+bevy = "0.9.1"
+bracket-noise = "0.8.7"
+iyes_loopless = "0.9.1"
