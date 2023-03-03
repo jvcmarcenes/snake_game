@@ -1,8 +1,11 @@
 [package]
 name = "snake_game"
 version = "0.1.0"
+authors = ["João <jvcmv.jvcmarcenes@gmail.com>"]
 edition = "2021"
+repository = "https://github.com/jvcmarcenes/snake_game"
+license = "MIT"
+keywords = ["snake", "game"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
